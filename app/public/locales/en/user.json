@@ -1,0 +1,14 @@
+{
+  "menuNav": {
+    "dashboard": "dashboard",
+    "vulnerabilities": "vulnerabilities",
+    "leaderboard": "leaderboard",
+    "hacks": "hacks",
+    "chat": "Open AI Chat",
+    "vertexAi": "Vertex AI Chat",
+    "settings": "settings"
+  },
+  "headerNav": {
+    "settings": "Settings"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "HeroRow": {
+    "line": "get hacked, get it back !",
+    "body": "decentralized job market survival-kit",
+    "opos": "opos",
+    "bluePill": "get hacked, get it back",
+    "redPill": "hack with impunity",
+    "getThingsDone": "get that 🍞"
+  },
+  "Jobs": {
+    "openJobs": "open jobs"
+  },
+  "Bounty": {
+    "openBounty": "open bounties"
+  },
+  "PR": {
+    "pullRequest": "pull requests"
+  }
+}
