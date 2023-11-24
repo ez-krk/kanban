@@ -11,6 +11,7 @@ import {
   HeartIcon,
   HomeIcon,
   MagnifyingGlassIcon,
+  PencilIcon,
   PresentationChartLineIcon,
   ReceiptPercentIcon,
   RocketLaunchIcon,
@@ -175,20 +176,20 @@ export const userMenuNav = [
     icon: TrophyIcon,
   },
   {
-    name: 'user:menuNav.hacks',
-    href: '/user/hacks/',
-    icon: CommandLineIcon,
+    name: 'user:menuNav.feedback',
+    href: '/user/feedback/',
+    icon: HeartIcon,
   },
-  // {
-  //   name: 'user:menuNav.vertexAi',
-  //   href: '/user/vertex-ai/',
-  //   icon: AcademicCapIcon,
-  // },
-  // {
-  //   name: 'user:menuNav.chat',
-  //   href: '/user/chat/',
-  //   icon: ChatBubbleLeftRightIcon,
-  // },
+  {
+    name: 'user:menuNav.survey',
+    href: '/user/survey/',
+    icon: PencilIcon,
+  },
+  {
+    name: 'user:menuNav.message',
+    href: '/user/message/',
+    icon: ChatBubbleLeftRightIcon,
+  },
   {
     name: 'user:menuNav.settings',
     href: '/user/settings/',

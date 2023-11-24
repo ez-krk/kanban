@@ -3,8 +3,9 @@
     "dashboard": "dashboard",
     "vulnerabilities": "vulnerabilities",
     "leaderboard": "leaderboard",
-    "hacks": "hacks",
-    "chat": "Open AI Chat",
+    "feedback": "feedback",
+    "message": "message",
+    "survey": "survey",
     "vertexAi": "Vertex AI Chat",
     "settings": "settings"
   },

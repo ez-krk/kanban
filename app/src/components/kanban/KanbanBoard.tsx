@@ -120,6 +120,7 @@ function KanbanBoard() {
   return (
     <div
       className="
+        dar:text-gray-50
         m-auto
         flex
         w-full
@@ -127,6 +128,7 @@ function KanbanBoard() {
         overflow-x-auto
         overflow-y-hidden
         px-[40px]
+        text-gray-600
     "
     >
       <DndContext

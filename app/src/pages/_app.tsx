@@ -7,8 +7,6 @@ import Layout from '@/layouts/Layout'
 import { RecoilRoot } from 'recoil'
 import Head from 'next/head'
 import type { SeoData } from '@/lib/getStatic'
-import 'highlight.js/styles/github-dark.css'
-import '@/assets/styles/globals.css'
 import { ThemeProvider } from 'next-themes'
 import { WalletContextProvider } from '@/contexts/WalletContextProvider'
 // solana
@@ -16,6 +14,9 @@ import { WalletAdapterNetwork } from '@solana/wallet-adapter-base'
 import { PhantomWalletAdapter } from '@solana/wallet-adapter-wallets'
 import { clusterApiUrl } from '@solana/web3.js'
 import { WhitehatProvider } from '@/contexts/WhitehatContextProvider'
+
+import 'highlight.js/styles/github-dark.css'
+import '@/assets/styles/globals.css'
 require('@solana/wallet-adapter-react-ui/styles.css')
 
 export type NextPageWithLayout = NextPage & {
