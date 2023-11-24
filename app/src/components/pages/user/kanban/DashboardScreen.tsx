@@ -17,12 +17,8 @@ import { query } from '@/lib/skeet/firestore'
 import DashboardMenu from './DashboardMenu'
 import DashboardBox from './DashboardBox'
 import { PROTOCOL_PDA, SOL_HACK_PDA, VULNERABILITY_PDA } from '@/types'
-import { useConnection, useWallet } from '@solana/wallet-adapter-react'
-import { Address, Program } from '@coral-xyz/anchor'
-import { IDL } from '@/idl'
-import { PROGRAM_ID } from '@/constants'
-import Spinner from '@/components/utils/Spinner'
-import { WhitehatContext } from '@/contexts/WhitehatContextProvider'
+import { KanbanContext } from '@/contexts/KanbanContextProvider'
+import { TEAM_PDA } from '@/models/kanban/structs'
 
 export default function DashboardScreen() {
   const { t } = useTranslation()
@@ -31,15 +27,17 @@ export default function DashboardScreen() {
   const addToast = useToastMessage()
 
   const [loading, setLoading] = useState(true)
+  const { program, doer, setDoer, teams, setTeams, todos, setTodos } =
+    useContext(KanbanContext)
 
-  const [isNewChatModalOpen, setNewChatModalOpen] = useState(false)
+  const [isNewChatModalOpen, setNewChatModalOpen] = useState(
+    teams && teams[0] ? false : true
+  )
   const [currentChatRoomId, setCurrentChatRoomId] = useState<string | null>(
     null
   )
 
-  const [selectedProgram, setSelectedProgram] = useState<PROTOCOL_PDA | null>(
-    null
-  )
+  const [selectedTeam, setSelectedTeam] = useState<TEAM_PDA | null>(null)
 
   const [chatList, setChatList] = useState<ChatRoom[]>([])
 
@@ -47,26 +45,17 @@ export default function DashboardScreen() {
     useState<QueryDocumentSnapshot<DocumentData> | null>(null)
   const [isDataLoading, setDataLoading] = useState(false)
 
-  const {
-    program,
-    programs,
-    setPrograms,
-    vulnerability,
-    setVulnerability,
-    pendingVulnerability,
-    solHacks,
-    setSolHacks,
-    pendingHacks,
-  } = useContext(WhitehatContext)
-
   return (
     <>
       <div className="content-height flex w-full flex-col items-start justify-start overflow-auto sm:flex-row">
         <DashboardMenu
           program={program}
-          programs={programs}
-          setPrograms={setPrograms}
-          setSelectedProgram={setSelectedProgram}
+          doer={doer}
+          setDoer={setDoer}
+          teams={teams}
+          setTeams={setTeams}
+          selectedTeam={selectedTeam}
+          setSelectedTeam={setSelectedTeam}
           isNewChatModalOpen={isNewChatModalOpen}
           setNewChatModalOpen={setNewChatModalOpen}
           currentChatRoomId={currentChatRoomId}
@@ -79,10 +68,10 @@ export default function DashboardScreen() {
           setDataLoading={setDataLoading}
         />
         <DashboardBox
-          programs={programs}
-          selectedProgram={selectedProgram}
-          pendingVulnerability={pendingVulnerability}
-          pendingHacks={pendingHacks}
+          doer={doer}
+          selectedTeam={selectedTeam}
+          todos={todos}
+          setTodos={setTodos}
           currentChatRoomId={currentChatRoomId}
         />
       </div>

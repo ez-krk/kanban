@@ -1,5 +1,5 @@
 import PlusIcon from '../../../public/icons/PlusIcon'
-import { useMemo, useState } from 'react'
+import { FC, useMemo, useState } from 'react'
 import { Column, Id, Task } from '@/types'
 import ColumnContainer from './ColumnContainer'
 import {
@@ -14,6 +14,7 @@ import {
 } from '@dnd-kit/core'
 import { SortableContext, arrayMove } from '@dnd-kit/sortable'
 import TaskCard from './TaskCard'
+import { TODO_PDA } from '@/models/kanban/structs'
 
 const defaultCols: Column[] = [
   {
@@ -99,11 +100,15 @@ const defaultTasks: Task[] = [
   },
 ]
 
-function KanbanBoard() {
+type Props = {
+  todos: TODO_PDA[] | null
+}
+
+const KanbanBoard: FC<Props> = ({ todos }) => {
   const [columns, setColumns] = useState<Column[]>(defaultCols)
   const columnsId = useMemo(() => columns.map((col) => col.id), [columns])
 
-  const [tasks, setTasks] = useState<Task[]>(defaultTasks)
+  const [tasks, setTasks] = useState<Task[]>(todos ? todos : defaultTasks)
 
   const [activeColumn, setActiveColumn] = useState<Column | null>(null)
 
@@ -120,15 +125,15 @@ function KanbanBoard() {
   return (
     <div
       className="
-        dar:text-gray-50
+        container-width
         m-auto
         flex
-        w-full
         items-center
         overflow-x-auto
         overflow-y-hidden
         px-[40px]
         text-gray-600
+        dark:text-gray-50
     "
     >
       <DndContext

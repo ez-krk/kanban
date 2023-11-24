@@ -16,15 +16,15 @@ export default function LogoNavbarLink({
   return (
     <>
       <Link href={href} {...rest}>
-        <span className="sr-only">work3</span>
+        <span className="sr-only">kanban</span>
         <div className="flex items-center">
           <span className="ml-2 font-bold text-gray-700  hover:text-gray-900  dark:hidden  dark:text-gray-50 dark:hover:text-gray-200">
-            work3
+            <span className="text-red-600">看板</span> kanban
           </span>
         </div>
         <div className="flex items-center">
           <span className="ml-2 hidden font-bold text-gray-700 hover:text-gray-900  dark:block  dark:text-gray-50 dark:hover:text-gray-200">
-            work3
+            <span className="text-red-600">看板</span> kanban
           </span>
         </div>
       </Link>

@@ -1,11 +1,10 @@
 {
   "menuNav": {
-    "dashboard": "dashboard",
-    "vulnerabilities": "vulnerabilities",
+    "kanban": "kanban",
     "leaderboard": "leaderboard",
     "feedback": "feedback",
     "message": "message",
-    "survey": "survey",
+    "surveys": "surveys",
     "vertexAi": "Vertex AI Chat",
     "settings": "settings"
   },

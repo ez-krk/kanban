@@ -54,7 +54,7 @@ import { FundsReturns } from '@/components/charts/FundsReturned'
 import {
   ADMIN_PUBKEY,
   MOCK_DATA,
-  PROGRAM_ID,
+  KANBAN_PROGRAM_ID,
   SOLANA_RPC_ENDPOINT,
 } from '@/constants'
 import Link from '@/components/routing/Link'
@@ -72,9 +72,10 @@ import type {
   SOL_HACK_PDA,
   VULNERABILITY_PDA,
 } from '@/types'
-import { initialize } from '@/utils/api/instructions/initialize'
 import { PaidHackers } from '@/components/charts/PaidHackers'
-import { deleteProtocol } from '@/utils/api/instructions/deleteProtocol'
+import Wallet from '@/components/common/atoms/Wallet'
+import KanbanBoard from '@/components/kanban/KanbanBoard'
+import { DOER_PDA, TEAM_PDA, TODO_PDA } from '@/models/kanban/structs'
 
 type ChatMessage = {
   id: string
@@ -91,18 +92,18 @@ const schema = z.object({
 type Inputs = z.infer<typeof schema>
 
 type Props = {
-  programs: PROTOCOL_PDA[] | null
-  selectedProgram: PROTOCOL_PDA | null
-  pendingVulnerability: number
-  pendingHacks: number
+  doer: DOER_PDA | null
+  selectedTeam: TEAM_PDA | null
+  todos: TODO_PDA[] | null
+  setTodos: React.Dispatch<React.SetStateAction<TODO_PDA[] | null>> | null
   currentChatRoomId: string | null
 }
 
 export default function DashboardBox({
-  programs,
-  selectedProgram,
-  pendingVulnerability,
-  pendingHacks,
+  doer,
+  selectedTeam,
+  todos,
+  setTodos,
   currentChatRoomId,
 }: Props) {
   const { t } = useTranslation()
@@ -371,33 +372,33 @@ export default function DashboardBox({
     [handleSubmit, onSubmit]
   )
 
-  const onClick = async () => {
-    if (publicKey && publicKey.toString() == ADMIN_PUBKEY) {
-      try {
-        const cnx = new Connection(SOLANA_RPC_ENDPOINT)
-        let signature: TransactionSignature = ''
-        const tx = await initialize(publicKey, connection)
-        signature = await sendTransaction(tx, cnx)
-        await cnx.confirmTransaction(signature, 'confirmed')
-      } catch (error) {
-        console.log(error)
-      }
-    }
-  }
+  // const onClick = async () => {
+  //   if (publicKey && publicKey.toString() == ADMIN_PUBKEY) {
+  //     try {
+  //       const cnx = new Connection(SOLANA_RPC_ENDPOINT)
+  //       let signature: TransactionSignature = ''
+  //       const tx = await initialize(publicKey, connection)
+  //       signature = await sendTransaction(tx, cnx)
+  //       await cnx.confirmTransaction(signature, 'confirmed')
+  //     } catch (error) {
+  //       console.log(error)
+  //     }
+  //   }
+  // }
 
-  const onClickDelete = async (pubkey: PublicKey) => {
-    if (publicKey && publicKey.toString() == ADMIN_PUBKEY) {
-      try {
-        const cnx = new Connection(SOLANA_RPC_ENDPOINT)
-        let signature: TransactionSignature = ''
-        const tx = await deleteProtocol(publicKey, pubkey, connection)
-        signature = await sendTransaction(tx, cnx)
-        await cnx.confirmTransaction(signature, 'confirmed')
-      } catch (error) {
-        console.log(error)
-      }
-    }
-  }
+  // const onClickDelete = async (pubkey: PublicKey) => {
+  //   if (publicKey && publicKey.toString() == ADMIN_PUBKEY) {
+  //     try {
+  //       const cnx = new Connection(SOLANA_RPC_ENDPOINT)
+  //       let signature: TransactionSignature = ''
+  //       const tx = await deleteProtocol(publicKey, pubkey, connection)
+  //       signature = await sendTransaction(tx, cnx)
+  //       await cnx.confirmTransaction(signature, 'confirmed')
+  //     } catch (error) {
+  //       console.log(error)
+  //     }
+  //   }
+  // }
 
   return (
     <>
@@ -406,12 +407,7 @@ export default function DashboardBox({
           <div className="flex h-full w-full flex-col items-center justify-center bg-gray-50 dark:bg-gray-800">
             <div className="flex w-full max-w-md flex-col items-center justify-center gap-6 p-4">
               {!publicKey ? (
-                <>
-                  <h2 className="text-2xl font-bold text-gray-700 dark:text-gray-200">
-                    {t('dashboard:connectWallet')}
-                  </h2>
-                  <WalletMultiButton />
-                </>
+                <Wallet />
               ) : (
                 <div className="flex flex-col">
                   {/* {publicKey.toString() == ADMIN_PUBKEY && (
@@ -419,63 +415,13 @@ export default function DashboardBox({
                   )} */}
                   {/* HEADER */}
                   <div className="flex flex-col items-center justify-center space-y-4 md:flex-row md:space-y-0">
-                    <Link href="/user/programs">
-                      <div className="flex w-72 items-center justify-center rounded-sm border p-4">
-                        <div className="flex grow flex-col">
-                          <span className="grow">
-                            {t('dashboard:programs')}
-                          </span>
-                          <span className="mb-[16px]">
-                            {programs && programs.length > 0
-                              ? programs.length
-                              : 0}
-                          </span>
-                        </div>
-                        <CpuChipIcon className="h-8 w-8" />
-                      </div>
-                    </Link>
-                    <Link href="/user/vulnerabilities">
-                      <div className="flex w-72 items-center justify-center rounded-sm border p-4">
-                        <div className="flex grow flex-col">
-                          <span className="">
-                            {t('dashboard:vulnerabilities')}
-                          </span>
-                          <span>
-                            {programs && programs.length > 0
-                              ? programs[0].vulnerabilities.toNumber()
-                              : 0}
-                          </span>
-                          <span className="text-xs">
-                            {t('dashboard:pendingReview')} :{' '}
-                            {pendingVulnerability}
-                          </span>
-                        </div>
-                        {pendingVulnerability > 0 ? (
-                          <ShieldExclamationIcon className="h-8 w-8" />
-                        ) : (
-                          <ShieldCheckIcon className="h-8 w-8" />
-                        )}
-                      </div>
-                    </Link>
-                    <Link href="/user/hacks">
-                      <div className="flex w-72 items-center justify-center rounded-sm border p-4">
-                        <div className="flex grow flex-col">
-                          <span className="grow">{t('dashboard:hacks')}</span>
-                          <span>
-                            {programs && programs[0]
-                              ? programs[0].hacks.toNumber()
-                              : 0}
-                          </span>
-                          <span className="text-xs">
-                            {t('dashboard:pendingReview')} : {pendingHacks}
-                          </span>
-                        </div>
-                        <CommandLineIcon className="h-8 w-8" />
-                      </div>
-                    </Link>
+                    <p className="text-xl font-bold text-gray-600 dark:text-gray-50">
+                      {t('kanban:welcomeBack')}{' '}
+                      {user.username ? user.username : ''} 👋
+                    </p>
                   </div>
                   <div className="mx-auto my-8 hidden flex-col md:flex md:flex-row">
-                    <div className="h-96 w-96">
+                    {/* <div className="h-96 w-96">
                       <p className="my-4 w-[100%] text-center">
                         {t('dashboard:fundsReturned')}
                       </p>
@@ -486,14 +432,15 @@ export default function DashboardBox({
                         {t('dashboard:paidToHackers')}
                       </p>
                       <PaidHackers data={MOCK_DATA} />
-                    </div>
+                    </div> */}
+                    <KanbanBoard todos={todos} />
                   </div>
                 </div>
               )}
             </div>
           </div>
         )}
-        {currentChatRoomId && selectedProgram && (
+        {currentChatRoomId && selectedTeam && (
           <div className="flex h-full w-full flex-col justify-between gap-4">
             <div
               ref={chatContentRef}
@@ -517,9 +464,7 @@ export default function DashboardBox({
                   <div className="flex w-full flex-col">
                     <div className="pb-2">
                       <p className="text-center text-base font-bold text-gray-900 dark:text-white">
-                        {selectedProgram.name
-                          ? selectedProgram.name
-                          : t('noTitle')}
+                        {selectedTeam.name ? selectedTeam.name : t('noTitle')}
                       </p>
                       {/* <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
                         {chatRoom?.model}: {chatRoom?.maxTokens} {t('tokens')}
@@ -534,20 +479,20 @@ export default function DashboardBox({
               {!publicKey ? (
                 <>
                   <h2 className="text-2xl font-bold text-gray-700 dark:text-gray-200">
-                    {t('dashboard:connectWallet')}
+                    {t('kanban:connectWallet')}
                   </h2>
                   <WalletMultiButton />
                 </>
               ) : (
                 <div className="mt-4 flex flex-col">
                   {/* HEADER */}
-                  {publicKey.toString() == ADMIN_PUBKEY && (
+                  {/* {publicKey.toString() == ADMIN_PUBKEY && (
                     <button
                       onClick={() => onClickDelete(selectedProgram.pubkey)}
                     >
                       delete
                     </button>
-                  )}
+                  )} */}
                   <div className="flex items-center justify-center space-x-4">
                     {/* <Link href="/user/programs">
                       <div className="flex w-72 items-center justify-center rounded-sm border p-4">
@@ -568,16 +513,16 @@ export default function DashboardBox({
                       <div className="flex w-72 items-center justify-center rounded-sm border p-4">
                         <div className="flex grow flex-col">
                           <span className="">
-                            {t('dashboard:vulnerabilities')}
+                            {t('kanban:vulnerabilities')}
                           </span>
                           <span>
-                            {selectedProgram.vulnerabilities.toNumber()
-                              ? selectedProgram.vulnerabilities.toNumber()
-                              : 0}
+                            {/* {selectedTeam.todos.toNumber()
+                              ? selectedTeam.vulnerabilities.toNumber()
+                              : 0} */}
                           </span>
                           <span className="text-xs">
-                            {t('dashboard:pendingReview')} :{' '}
-                            {pendingVulnerability}
+                            {t('kanban:pendingReview')} :{' '}
+                            {/* {pendingVulnerability} */}
                           </span>
                         </div>
                         <ShieldExclamationIcon className="h-8 w-8" />
@@ -587,13 +532,9 @@ export default function DashboardBox({
                       <div className="flex w-72 items-center justify-center rounded-sm border p-4">
                         <div className="flex grow flex-col">
                           <span className="grow">{t('dashboard:hacks')}</span>
-                          <span>
-                            {selectedProgram
-                              ? selectedProgram.hacks.toNumber()
-                              : 0}
-                          </span>
+                          <span>{selectedTeam ? selectedTeam.todos : 0}</span>
                           <span className="text-xs">
-                            {t('dashboard:pendingReview')} : {pendingHacks}
+                            {/* {t('dashboard:pendingReview')} : {pendingHacks} */}
                           </span>
                         </div>
                         <CommandLineIcon className="h-8 w-8" />
@@ -603,13 +544,13 @@ export default function DashboardBox({
                   <div className="mx-auto my-8 flex">
                     <div className="h-96 w-96">
                       <p className="my-4 w-[100%] text-center">
-                        {t('dashboard:fundsReturned')}
+                        {t('kanban:fundsReturned')}
                       </p>
                       <FundsReturns data={MOCK_DATA} />
                     </div>
                     <div className="h-96 w-96">
                       <p className="my-4 w-[100%] text-center">
-                        {t('dashboard:paidToHackers')}
+                        {t('kanban:paidToHackers')}
                       </p>
                       <PaidHackers data={MOCK_DATA} />
                     </div>

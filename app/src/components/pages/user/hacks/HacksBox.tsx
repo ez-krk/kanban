@@ -40,7 +40,7 @@ import { approveHack } from '@/utils/api/instructions/approveHack'
 
 import type { PROTOCOL_PDA, SOL_HACK_PDA, VULNERABILITY_PDA } from '@/types'
 import Spinner from '@/components/utils/Spinner'
-import { WhitehatContext } from '@/contexts/WhitehatContextProvider'
+import { WhitehatContext } from '@/contexts/KanbanContextProvider'
 
 type ChatMessage = {
   id: string

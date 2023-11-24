@@ -1,4 +1,4 @@
-import { PublicKey } from "@solana/web3.js";
+import { PublicKey } from '@solana/web3.js'
 
 export type TODO_PDA = {
   // pub owner: Pubkey,
@@ -12,17 +12,18 @@ export type TODO_PDA = {
   // pub created_at: i64,
   // pub bump: u8,
 
-  owner: PublicKey;
-  team: PublicKey;
-  id: number;
-  title: string;
-  content: string;
-  status: number;
-  day: number;
-  done: boolean;
-  createdAt: number;
-  bump: number;
-};
+  owner: PublicKey
+  team: PublicKey
+  columnId: string
+  id: number
+  title: string
+  content: string
+  status: number
+  day: number
+  done: boolean
+  createdAt: number
+  bump: number
+}
 
 export type DOER_PDA = {
   // pub owner: Pubkey,
@@ -33,16 +34,16 @@ export type DOER_PDA = {
   // pub done: u64,
   // pub created_at: i64,
   // pub bump: u8,
-
-  owner: PublicKey;
-  team: PublicKey;
-  name: string;
-  created: number;
-  deleted: number;
-  done: number;
-  createdAt: number;
-  bump: number;
-};
+  pubkey: PublicKey
+  owner: PublicKey
+  team: PublicKey
+  name: string
+  created: number
+  deleted: number
+  done: number
+  createdAt: number
+  bump: number
+}
 
 export type TEAM_PDA = {
   // pub owner: Pubkey,
@@ -55,18 +56,18 @@ export type TEAM_PDA = {
   // pub created_at: i64,
   // pub bump: u8,
 
-  pubkey: PublicKey;
-  owner: PublicKey;
-  team: PublicKey;
-  name: string;
-  todos: number;
-  doers: number;
-  created: number;
-  deleted: number;
-  done: number;
-  createdAt: number;
-  bump: number;
-};
+  pubkey: PublicKey
+  owner: PublicKey
+  team: PublicKey
+  name: string
+  todos: number
+  doers: number
+  created: number
+  deleted: number
+  done: number
+  createdAt: number
+  bump: number
+}
 
 export type INVITE_PDA = {
   // pub owner: Pubkey,
@@ -74,11 +75,11 @@ export type INVITE_PDA = {
   // pub team: Pubkey,
   // pub created_at: i64,
   // pub bump: u8,
-  name: string;
-  pubkey: PublicKey;
-  owner: PublicKey;
-  doer: PublicKey;
-  team: PublicKey;
-  createdAt: number;
-  bump: number;
-};
+  name: string
+  pubkey: PublicKey
+  owner: PublicKey
+  doer: PublicKey
+  team: PublicKey
+  createdAt: number
+  bump: number
+}

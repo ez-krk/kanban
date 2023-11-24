@@ -54,7 +54,7 @@ import type { PROTOCOL_PDA, SOL_HACK_PDA, VULNERABILITY_PDA } from '@/types'
 import { approveVulnerability } from '@/utils/api/instructions/approveVulnerability'
 import Spinner from '@/components/utils/Spinner'
 import { deleteVulnerability } from '@/utils/api/instructions/deleteVulnerability'
-import { WhitehatContext } from '@/contexts/WhitehatContextProvider'
+import { WhitehatContext } from '@/contexts/KanbanContextProvider'
 import { Ed25519Ecies } from '@/lib/ed25519-ecies/dist/index'
 
 type ChatMessage = {

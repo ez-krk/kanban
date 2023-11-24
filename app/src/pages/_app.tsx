@@ -13,7 +13,7 @@ import { WalletContextProvider } from '@/contexts/WalletContextProvider'
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base'
 import { PhantomWalletAdapter } from '@solana/wallet-adapter-wallets'
 import { clusterApiUrl } from '@solana/web3.js'
-import { WhitehatProvider } from '@/contexts/WhitehatContextProvider'
+import { KanbanProvider } from '@/contexts/KanbanContextProvider'
 
 import 'highlight.js/styles/github-dark.css'
 import '@/assets/styles/globals.css'
@@ -55,7 +55,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
         wallets={wallets}
       >
         <RecoilRoot>
-          <WhitehatProvider>
+          <KanbanProvider>
             <ThemeProvider attribute="class">
               <main className="min-h-screen scroll-smooth font-sans antialiased">
                 <Layout
@@ -65,7 +65,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
                 />
               </main>
             </ThemeProvider>
-          </WhitehatProvider>
+          </KanbanProvider>
         </RecoilRoot>
       </WalletContextProvider>
     </>

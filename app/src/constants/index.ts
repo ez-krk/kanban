@@ -1,4 +1,4 @@
-export const PROGRAM_ID = 'HATNBZtwk8uLUZeSuYK8QYwWzk1kT5didcGFs9a6GtTW'
+export const KANBAN_PROGRAM_ID = 'WBAeGBvBarw39HZPfKjQnYKH57FcVJTmvGyDDSMwZwq'
 
 export const SOLANA_RPC_ENDPOINT =
   (process.env.NEXT_PUBLIC_SOLANA_RPC_ENDPOINT as string) ||

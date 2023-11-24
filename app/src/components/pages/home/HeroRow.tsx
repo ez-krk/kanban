@@ -1,26 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
-import { Connection, LAMPORTS_PER_SOL, PublicKey } from '@solana/web3.js'
 import { useWallet } from '@solana/wallet-adapter-react'
 import clsx from 'clsx'
 import Container from '@/components/common/atoms/Container'
 import Button from '@/components/common/atoms/Button'
-import nextjsLogo from '@/assets/img/logo/projects/nextjs.svg'
-// import i18nextLogo from '@/assets/img/logo/projects/i18next.webp'
-// import recoilLogo from '@/assets/img/logo/projects/recoil.svg'
-// import eslintLogo from '@/assets/img/logo/projects/eslint.svg'
-// import prettierLogo from '@/assets/img/logo/projects/prettier.png'
-import firebaseLogo from '@/assets/img/logo/projects/Firebase.svg'
-import tailwindcssLogo from '@/assets/img/logo/projects/tailwindcss.svg'
-import typescriptLogo from '@/assets/img/logo/projects/TypeScriptHorizontal.svg'
-import solanaLogo from '@/assets/img/logo/projects/solana.svg'
-import anchorLogo from '@/assets/img/logo/projects/anchor.png'
-import heliusLogo from '@/assets/img/logo/projects/helius.png'
-import rustLogo from '@/assets/img/logo/projects/rust.svg'
-import skeetLogo from '@/assets/img/logo/projects/skeet.svg'
-import bluepill from '@/assets/img/props/bluepill.svg'
-import redpill from '@/assets/img/props/redpill.svg'
 import AnalyticsRow from './AnalyticsRow'
 import HomeTableRow from './TableRow'
 
@@ -32,7 +16,7 @@ export default function HomeHeroRow() {
     <>
       <Container className="pb-40 pt-24 text-center lg:pb-64 lg:pt-40">
         <h1 className="font-display mx-auto max-w-4xl text-5xl font-bold tracking-tight text-gray-900 dark:text-gray-50 sm:text-7xl">
-          work3
+          <span className="text-red-600">看板</span> kanban
         </h1>
 
         {/* <p className="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-gray-700 dark:text-gray-200">

@@ -10,7 +10,7 @@ export default function LogoHorizontal({ className, ...rest }: Props) {
   return (
     <>
       <div {...rest}>
-        <span className="sr-only">work3</span>
+        <span className="sr-only">kanban</span>
         <div className="flex items-center">
           <AiOutlineFire
             className={clsx(

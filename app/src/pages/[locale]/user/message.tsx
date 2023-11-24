@@ -5,10 +5,10 @@ import { getStaticPaths, makeStaticProps } from '@/lib/getStatic'
 import ChatScreen from '@/components/pages/user/chat/ChatScreen'
 
 const seo = {
-  pathname: '/user/chat',
+  pathname: '/user/message',
   title: {
-    ja: 'AIチャット',
-    en: 'AI Chat',
+    ja: 'message',
+    en: 'message',
   },
   description: {
     ja: siteConfig.descriptionJA,

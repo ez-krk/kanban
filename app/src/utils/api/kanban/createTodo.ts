@@ -1,11 +1,11 @@
 import { PublicKey, SystemProgram, Transaction } from '@solana/web3.js'
-import { IDL } from '@/models/idl'
-import { PROGRAM_ID } from '@/constants'
+import { IDL } from '@/models/kanban/idl'
+import { KANBAN_PROGRAM_ID } from '@/constants'
 import { Address, BN, Program } from '@coral-xyz/anchor'
 import { ConnectionContextState } from '@solana/wallet-adapter-react'
-import { Status, SolWeekDay } from '@/models/todo'
+import { Status, SolWeekDay } from '@/models/kanban/todo'
 
-export const updateTodo = async ({
+export const createTodo = async ({
   title,
   content,
   status,
@@ -20,7 +20,7 @@ export const updateTodo = async ({
   owner: PublicKey
   connection: ConnectionContextState
 }): Promise<Transaction> => {
-  const program = new Program(IDL, PROGRAM_ID as Address, connection)
+  const program = new Program(IDL, KANBAN_PROGRAM_ID as Address, connection)
 
   const doer = PublicKey.findProgramAddressSync(
     [Buffer.from('doer'), owner.toBuffer()],
@@ -50,7 +50,6 @@ export const updateTodo = async ({
 
   const transaction = await program.methods
     .createTodo(title, content, status + 1, day + 1, seed)
-
     .accounts({
       owner,
       doer,

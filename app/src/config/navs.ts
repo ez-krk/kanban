@@ -27,18 +27,18 @@ export const defaultMainNav = [
   //   name: 'navs.defaultMainNav.home',
   //   href: '/',
   // },
-  // {
-  //   name: 'navs.defaultMainNav.news',
-  //   href: '/news/',
-  // },
-  // {
-  //   name: 'navs.defaultMainNav.explore',
-  //   href: '/explore/',
-  // },
-  // {
-  //   name: 'navs.defaultMainNav.docs',
-  //   href: '/docs/',
-  // },
+  {
+    name: 'navs.defaultMainNav.earn',
+    href: '#/earn/',
+  },
+  {
+    name: 'navs.defaultMainNav.grants',
+    href: '#/grants/',
+  },
+  {
+    name: 'navs.defaultMainNav.docs',
+    href: '/docs/',
+  },
 ]
 
 export const commonFooterNav = [
@@ -166,14 +166,14 @@ export const docHeaderNav = [
 
 export const userMenuNav = [
   {
-    name: 'user:menuNav.dashboard',
-    href: '/user/dashboard/',
+    name: 'user:menuNav.kanban',
+    href: '/user/kanban/',
     icon: PresentationChartLineIcon,
   },
   {
-    name: 'user:menuNav.leaderboard',
-    href: '/user/leaderboard/',
-    icon: TrophyIcon,
+    name: 'user:menuNav.message',
+    href: '/user/message/',
+    icon: ChatBubbleLeftRightIcon,
   },
   {
     name: 'user:menuNav.feedback',
@@ -181,14 +181,14 @@ export const userMenuNav = [
     icon: HeartIcon,
   },
   {
-    name: 'user:menuNav.survey',
-    href: '/user/survey/',
+    name: 'user:menuNav.surveys',
+    href: '/user/surveys/',
     icon: PencilIcon,
   },
   {
-    name: 'user:menuNav.message',
-    href: '/user/message/',
-    icon: ChatBubbleLeftRightIcon,
+    name: 'user:menuNav.leaderboard',
+    href: '/user/leaderboard/',
+    icon: TrophyIcon,
   },
   {
     name: 'user:menuNav.settings',

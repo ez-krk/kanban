@@ -56,7 +56,7 @@ export default function AuthLayout({ children }: Props) {
             secretKey: secretKey?.toString() ?? '',
             emailVerified: fbUser.emailVerified,
           })
-          await router.push('/user/dashboard')
+          await router.push('/user/kanban')
         } catch (e) {
           console.error(e)
           setUser(defaultUser)

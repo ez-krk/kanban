@@ -47,7 +47,7 @@ function TaskCard({ task, deleteTask, updateTask }: Props) {
         style={style}
         className="
         bg-mainBackgroundColor
-      relative flex h-[100px] min-h-[100px] cursor-grab items-center rounded-xl border-2 border-rose-500 p-2.5  text-left opacity-30
+      relative flex h-[100px] min-h-[100px] cursor-grab items-center rounded-xl border-2 border-rose-500 p-2.5  text-left text-gray-600 opacity-30 dark:text-gray-50
       "
       />
     )

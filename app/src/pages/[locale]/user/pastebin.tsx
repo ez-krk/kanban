@@ -2,14 +2,14 @@ import { ReactElement } from 'react'
 import UserLayout from '@/layouts/user/UserLayout'
 import siteConfig from '@/config/site'
 import { getStaticPaths, makeStaticProps } from '@/lib/getStatic'
-import DashboardScreen from '@/components/pages/user/dashboard/DashboardScreen'
-import KanbanBoard from '@/components/kanban/KanbanBoard'
+import DashboardScreen from '@/components/pages/user/kanban/DashboardScreen'
+import { useWallet } from '@solana/wallet-adapter-react'
 
 const seo = {
-  pathname: '/user/dashboard',
+  pathname: '/user/pastebin',
   title: {
     ja: 'AIチャット',
-    en: 'dashboard',
+    en: 'pastebin',
   },
   description: {
     ja: siteConfig.descriptionJA,
@@ -22,9 +22,10 @@ const getStaticProps = makeStaticProps(['common', 'user', 'dashboard'], seo)
 export { getStaticPaths, getStaticProps }
 
 export default function Dashboard() {
+  const { publicKey } = useWallet()
   return (
     <>
-      <KanbanBoard />
+      <DashboardScreen />
     </>
   )
 }

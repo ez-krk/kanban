@@ -195,7 +195,7 @@ export default function LoginScreen() {
     <>
       <div className="flex h-full flex-col items-center justify-start py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
-          {/* <LogoNavbar className="flex h-10 w-10 items-center justify-center" /> */}
+          <LogoNavbar className="flex h-10 w-10 items-center justify-center" />
           <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
             {t('auth:loginToYourAccount')}
           </h2>
@@ -283,6 +283,9 @@ export default function LoginScreen() {
               </div>
             </div>
           </form>
+          <p className="w-full text-center text-gray-600 dark:text-gray-50">
+            OR
+          </p>
           <div
             className={clsx(
               'flex flex-row items-center justify-center rounded-none bg-gray-900 hover:bg-gray-600 dark:bg-gray-800 dark:hover:bg-gray-700'

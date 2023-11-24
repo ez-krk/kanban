@@ -63,12 +63,14 @@ function ColumnContainer({
       flex
       h-[500px]
       max-h-[500px]
-      w-[350px]
+      w-[300px]
       flex-col
       rounded-md
       border-2
       border-pink-500
+      text-gray-600
       opacity-40
+      dark:text-gray-50
       "
       ></div>
     )
@@ -83,7 +85,7 @@ function ColumnContainer({
   flex
   h-[500px]
   max-h-[500px]
-  w-[350px]
+  w-[300px]
   flex-col
   rounded-md
   "

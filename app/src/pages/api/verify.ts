@@ -1,4 +1,3 @@
-import * as admin from 'firebase-admin'
 import { initializeApp } from 'firebase-admin/app'
 import { getApp } from 'firebase/app'
 import { getAuth } from 'firebase-admin/auth'
@@ -21,7 +20,7 @@ export interface SiwsRequest extends NextApiRequest {
 }
 export default async function handler(req: SiwsRequest, res: NextApiResponse) {
   try {
-    const app = initializeApp(firebaseConfig, firebaseConfig.authDomain)
+    const app = initializeApp(firebaseConfig)
     console.log(app.name)
     const backendInput: SolanaSignInInput = req.body.input
     const { output } = req.body

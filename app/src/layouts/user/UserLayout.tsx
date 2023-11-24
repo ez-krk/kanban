@@ -17,6 +17,8 @@ import { User as UserModel, genUserPath } from '@/types/models/userModels'
 import { get } from '@/lib/skeet/firestore'
 import LogoNavbarLink from '@/components/common/atoms/LogoNavbarLink'
 import LogoHorizontalLink from '@/components/common/atoms/LogoHorizontalLink'
+import Wallet from '@/components/common/atoms/Wallet'
+import { useWallet } from '@solana/wallet-adapter-react'
 
 type Props = {
   children: ReactNode
@@ -28,6 +30,7 @@ export default function UserLayout({ children }: Props) {
   const router = useRouter()
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const { t } = useTranslation()
+  const { publicKey } = useWallet()
 
   const asPathWithoutLang = useMemo(() => {
     return router.asPath.replace('/ja/', '/').replace('/en/', '/')
@@ -225,6 +228,11 @@ export default function UserLayout({ children }: Props) {
         </div>
         <div className="flex flex-1 flex-col lg:pl-64">
           <div className="flex-shrink- sticky top-0 flex h-16 bg-white bg-opacity-90 dark:bg-gray-900 dark:bg-opacity-90">
+            {publicKey && (
+              <div className="flex w-full items-center justify-end px-6">
+                <Wallet />
+              </div>
+            )}
             <button
               type="button"
               className="px-4 text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500 dark:text-gray-50 dark:hover:text-gray-200 lg:hidden"
