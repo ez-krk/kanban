@@ -7,3 +7,12 @@ node_modules
 test-ledger
 .yarn
 .pnp*
+# backend
+**/__pycache__/
+**venv
+**.env
+
+# frontend
+**/node_modules/
+**/dist/
+**/build/

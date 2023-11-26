@@ -1,0 +1,34 @@
+version: "3"
+services:
+  cache:
+    image: redis:alpine
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - cache:/data
+  selenium:
+    image: selenium/standalone-chrome
+    privileged: true
+    shm_size: 2g
+    ports:
+      - 4444:4444
+  scrapper:
+    build:
+      context: ./backend/scrapper
+      dockerfile: backend/scrapper/Dockerfile
+    depends_on:
+      - cache
+      - selenium
+  api:
+    build:
+      context: ./backend/api
+      dockerfile: backend/api/Dockerfile
+    ports:
+      - 5000:5000
+    depends_on:
+      - scrapper
+
+volumes:
+  cache:
+    driver: local
